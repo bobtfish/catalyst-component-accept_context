@@ -4,11 +4,11 @@ use strict;
 use warnings;
 use Test::More tests => 4;
 
-my $app = { app => 'oh yeah' };
+my $app = 'MyApp';
 
 my $foo = Foo->COMPONENT($app, { args => 'yes' });
 is $foo->{args}, 'yes', 'foo created';
-is $foo->context->{app}, 'oh yeah', 'got app';
+is $foo->context->app, 'oh yeah', 'got app';
 
 my $ctx = { ctx => 'it is' };
 my $foo2 = $foo->ACCEPT_CONTEXT($ctx);
@@ -21,7 +21,10 @@ is $foo->context->{ctx}, 'it is', 'got ctx';
 
     sub new {
         my $class = shift;
-        return $class->NEXT::new(@_);
+        return $class->next::method(@_);
     }
 
+    package MyApp;
+    use Catalyst;
+    sub app { 'oh yeah' }
 }

@@ -9,7 +9,7 @@ BEGIN {
     { no warnings;
       sub Catalyst::Controller::new {
           $NEW_CALLED = 1;
-          return shift->NEXT::new(@_);
+          return shift->next::method(@_);
       }
   }
 }
