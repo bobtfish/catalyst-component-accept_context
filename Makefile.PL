@@ -9,6 +9,9 @@ requires 'Catalyst';
 requires 'Scalar::Util';
 requires 'MRO::Compat';
 build_requires 'Devel::Cycle';
+
+resources respository => 'git://git.shadowcat.co.uk/catagits/Catalyst-Component-ACCEPT_CONTEXT';
+
 auto_install;
 WriteAll;
 

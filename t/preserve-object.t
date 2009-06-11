@@ -1,19 +1,15 @@
 #!/usr/bin/env perl
-
 use strict;
 use warnings;
-use Test::More tests => 4;
 
-my $app = 'MyApp';
+{
+    package MyApp;
+    use Moose;
+    use Catalyst;
+    no Moose;
 
-my $foo = Foo->COMPONENT($app, { args => 'yes' });
-is $foo->{args}, 'yes', 'foo created';
-is $foo->context->app, 'oh yeah', 'got app';
-
-my $ctx = { ctx => 'it is' };
-my $foo2 = $foo->ACCEPT_CONTEXT($ctx);
-is $foo, $foo2, 'foo and foo2 are the same ref';
-is $foo->context->{ctx}, 'it is', 'got ctx';
+    sub _is_this_the_app { 'oh yeah' }
+}
 
 {
     package Foo;
@@ -23,8 +19,19 @@ is $foo->context->{ctx}, 'it is', 'got ctx';
         my $class = shift;
         return $class->next::method(@_);
     }
-
-    package MyApp;
-    use Catalyst;
-    sub app { 'oh yeah' }
 }
+
+use Test::More tests => 4;
+use Scalar::Util qw/refaddr/;
+
+my $app_class = 'MyApp';
+
+my $foo = Foo->COMPONENT($app_class, { args => 'yes' });
+is $foo->{args}, 'yes', 'foo created';
+is $foo->context->_is_this_the_app, 'oh yeah', 'got app';
+
+my $ctx = { };
+my $foo2 = $foo->ACCEPT_CONTEXT($ctx);
+is refaddr($foo), refaddr($foo2), 'foo and foo2 are the same ref';
+is refaddr($foo->context), refaddr($ctx), 'got ctx';
+
