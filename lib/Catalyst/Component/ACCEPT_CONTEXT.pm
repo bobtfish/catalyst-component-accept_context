@@ -42,7 +42,7 @@ your model:
 Using this module is somewhat of a hack.  Changing the state of your
 objects on every request is a pretty braindead way of doing OO.  If
 you want your application to be brain-live, then you should use
-L<Catalyst::Component::InstancePerContext|Catalyst::Component::InstancePerContext>.  
+L<Catalyst::Component::InstancePerContext>.  
 
 Instead of doing this on every request (which is basically
 what this module does):
@@ -143,6 +143,16 @@ sub COMPONENT {
 
 Jonathan Rockway, C<< <jrockway at cpan.org> >>
 
+Patches contributed and maintained by:
+
+=over
+
+=item Rafael Kitover (Caelum)
+
+=item Tomas Doran (t0m) C<< <bobtfish@bobtfish.net> >>
+
+=back
+
 =head1 BUGS
 
 Please report any bugs or feature requests to
@@ -182,6 +192,12 @@ L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Catalyst-Component-ACCEPT_CONTEXT>
 L<http://search.cpan.org/dist/Catalyst-Component-ACCEPT_CONTEXT>
 
 =back
+
+=head1 Source code
+
+The source code for this project can be found at:
+
+    git://git.shadowcat.co.uk/catagits/Catalyst-Component-ACCEPT_CONTEXT
 
 =head1 COPYRIGHT & LICENSE
 
